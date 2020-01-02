@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Includes -->
+  <xacro:include filename="$(find xacro_helpers)/urdf/inertial.xacro" />
+  <!-- Box -->
+  <!-- This macro should not be named box, because this leads to naming collisions with the build in box element -->
+  <xacro:macro name="gbox" params="name mass sx sy sz cmask:=0x00 xyz:='0 0 0' rpy='0 0 0'">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <box size="${sx} ${sy} ${sz}" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <box size="${sx} ${sy} ${sz}" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="${mass}" />
+        <xacro:box_inertia m="${mass}" x="${sx}" y="${sy}" z="${sz}" />
+      </inertial>
+    </link>
+    <gazebo reference="${name}">
+      <collision>
+        <surface>
+          <contact>
+            <!-- <collide_bitmask>"${cmask}"</collide_bitmask> -->
+            <!-- <xacro:insert_block name="${cmask}" /> -->
+          </contact>
+        </surface>
+      </collision>
+    </gazebo>
+  </xacro:macro>
+  <!-- Cylinder -->
+  <!-- This macro should not be named cylinder, because this leads to naming collisions with the build in cylinder element -->
+  <xacro:macro name="gcylinder" params="name mass length radius cmask:=0x00 xyz='0 0 0' rpy='0 0 0'">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${length}" radius="${radius}" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <cylinder length="${length}" radius="${radius}" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="${mass}" />
+        <xacro:cylinder_inertia m="${mass}" r="${radius}" h="${length}" />
+      </inertial>
+    </link>
+    <gazebo reference="${name}">
+      <collision>
+        <surface>
+          <contact>
+            <!-- <collide_bitmask>"${cmask}"</collide_bitmask> -->
+            <!-- <xacro:insert_block name="${cmask}" /> -->
+          </contact>
+        </surface>
+      </collision>
+    </gazebo>
+  </xacro:macro>
+  <!-- Sphere -->
+  <!-- This macro should not be named sphere, because this leads to naming collisions
+       with the build in sphere element -->
+  <xacro:macro name="gsphere" params="name mass radius cmask:=0x00 xyz='0 0 0' rpy='0 0 0'">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <sphere radius="${radius}" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${xyz}" rpy="${rpy}" />
+        <geometry>
+          <sphere radius="${radius}" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="${mass}" />
+        <xacro:sphere_inertia m="${mass}" r="${radius}" />
+      </inertial>
+    </link>
+    <gazebo reference="${name}">
+      <collision>
+        <surface>
+          <contact>
+            <!-- <collide_bitmask>"${cmask}"</collide_bitmask> -->
+            <!-- <xacro:insert_block name="${cmask}" /> -->
+          </contact>
+        </surface>
+      </collision>
+    </gazebo>
+  </xacro:macro>
+</robot>
