@@ -4,16 +4,16 @@
   <xacro:include filename="$(find xacro_helpers)/urdf/inertial.xacro" />
   <!-- Box -->
   <!-- This macro should not be named box, because this leads to naming collisions with the build in box element -->
-  <xacro:macro name="gbox" params="name mass sx sy sz cmask:=0x00 xyz:='0 0 0' rpy='0 0 0'">
+  <xacro:macro name="gbox" params="name mass sx sy sz *origin *collide_bitmask">
     <link name="${name}">
       <visual>
-        <origin xyz="${xyz}" rpy="${rpy}" />
+        <xacro:insert_block name="origin" />
         <geometry>
           <box size="${sx} ${sy} ${sz}" />
         </geometry>
       </visual>
       <collision>
-        <origin xyz="${xyz}" rpy="${rpy}" />
+        <xacro:insert_block name="origin" />
         <geometry>
           <box size="${sx} ${sy} ${sz}" />
         </geometry>
@@ -27,8 +27,7 @@
       <collision>
         <surface>
           <contact>
-            <!-- <collide_bitmask>"${cmask}"</collide_bitmask> -->
-            <!-- <xacro:insert_block name="${cmask}" /> -->
+            <xacro:insert_block name="collide_bitmask" />
           </contact>
         </surface>
       </collision>
@@ -36,16 +35,16 @@
   </xacro:macro>
   <!-- Cylinder -->
   <!-- This macro should not be named cylinder, because this leads to naming collisions with the build in cylinder element -->
-  <xacro:macro name="gcylinder" params="name mass length radius cmask:=0x00 xyz='0 0 0' rpy='0 0 0'">
+  <xacro:macro name="gcylinder" params="name mass length radius *origin *collide_bitmask">
     <link name="${name}">
       <visual>
-        <origin xyz="${xyz}" rpy="${rpy}" />
+        <xacro:insert_block name="origin" />
         <geometry>
           <cylinder length="${length}" radius="${radius}" />
         </geometry>
       </visual>
       <collision>
-        <origin xyz="${xyz}" rpy="${rpy}" />
+        <xacro:insert_block name="origin" />
         <geometry>
           <cylinder length="${length}" radius="${radius}" />
         </geometry>
@@ -59,8 +58,7 @@
       <collision>
         <surface>
           <contact>
-            <!-- <collide_bitmask>"${cmask}"</collide_bitmask> -->
-            <!-- <xacro:insert_block name="${cmask}" /> -->
+            <xacro:insert_block name="collide_bitmask" />
           </contact>
         </surface>
       </collision>
@@ -69,16 +67,16 @@
   <!-- Sphere -->
   <!-- This macro should not be named sphere, because this leads to naming collisions
        with the build in sphere element -->
-  <xacro:macro name="gsphere" params="name mass radius cmask:=0x00 xyz='0 0 0' rpy='0 0 0'">
+  <xacro:macro name="gsphere" params="name mass radius *origin *collide_bitmask">
     <link name="${name}">
       <visual>
-        <origin xyz="${xyz}" rpy="${rpy}" />
+        <xacro:insert_block name="origin" />
         <geometry>
           <sphere radius="${radius}" />
         </geometry>
       </visual>
       <collision>
-        <origin xyz="${xyz}" rpy="${rpy}" />
+        <xacro:insert_block name="origin" />
         <geometry>
           <sphere radius="${radius}" />
         </geometry>
@@ -92,8 +90,7 @@
       <collision>
         <surface>
           <contact>
-            <!-- <collide_bitmask>"${cmask}"</collide_bitmask> -->
-            <!-- <xacro:insert_block name="${cmask}" /> -->
+            <xacro:insert_block name="collide_bitmask" />
           </contact>
         </surface>
       </collision>
